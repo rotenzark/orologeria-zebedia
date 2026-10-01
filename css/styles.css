@@ -1,0 +1,298 @@
+/* PLUMBING_V 1 — reset tecnico canonico (Toolkit/boilerplate/plumbing.css) */
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ══════════ OROLOGERIA ZEBEDIA — Via Zebedia 9 ══════════
+   «Negozio storico di riparazioni di orologi … dal 1929» (loro). Il loro sacchetto di velluto verde con la scritta d'oro in corsivo,
+   la lente da orologiaio, le didascalie dei lavori. Il banco: i lavori sui cartellini di carta; il cartello «Orario» appeso alla porta.
+   La firma è la revisione (_ozb_firma.mjs). */
+:root {
+  --velluto: #0F3A26;
+  --velluto-2: #17503A;
+  --velluto-3: #21614A;
+  --scuro: #0A2A1B;
+  --oro: #C9A55C;
+  --oro-chiaro: #E4CB8E;
+  --oro-scuro: #7A5C24;
+  --carta: #F4EEE2;
+  --carta-2: #FBF7EE;
+  --bordo-carta: #D6C8A8;
+  --inchiostro: #1E2A22;
+  --grigio: #555B54;
+  --rubino: #A8263A;
+  --su-verde: #F3EBDD;
+  --su-verde-2: #C6D3C9;
+  --aperto: #7FD3A0;
+  --f-titoli: 'Ledger', Georgia, serif;
+  --f-testo: 'IBM Plex Serif', Georgia, serif;
+  --f-nome: 'Arizonia', 'Brush Script MT', cursive;
+  --gutter: 16px;
+  --testata-h: 76px;
+}
+@media (min-width: 760px) { :root { --gutter: 24px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; color: var(--inchiostro); font: 400 1.04rem/1.62 var(--f-testo); background: var(--carta); }
+a { color: var(--rubino); }
+b, strong { font-weight: 700; }
+.salta { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: #fff; color: #111; font-weight: 700; text-decoration: none; }
+.salta:focus { top: 10px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+section[id] { scroll-margin-top: calc(var(--testata-h) + 14px); }
+.intero { white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--oro); outline-offset: 2px; }
+/* finché i caratteri non arrivano il ripiego è più largo: una parola lunga va a capo invece di uscire (riserva-check, #233) */
+h1, h2, h3 { overflow-wrap: anywhere; }
+
+/* ── il marchio: il loro nome in corsivo d'oro, «Dal 1929» sotto, come sul sacchetto ── */
+.marchio { display: inline-grid; justify-items: start; min-width: 0; color: var(--oro-chiaro); text-decoration: none; line-height: 1; }
+.marchio__nome { font: 400 1.75rem/1.25 var(--f-nome); color: var(--oro-chiaro); white-space: nowrap; }
+.marchio__sotto { margin: -2px 0 0 1.6em; font: 700 .68rem/1 var(--f-testo); letter-spacing: .22em; text-transform: uppercase; color: var(--su-verde-2); }
+
+/* ── la testata verde velluto, col filo d'oro ── */
+.testata { position: sticky; top: 0; z-index: 50; background: var(--velluto); box-shadow: 0 1px 0 var(--oro), 0 3px 0 var(--velluto), 0 4px 0 rgba(201, 165, 92, .45); }
+.testata__dentro { display: flex; align-items: center; gap: 10px; max-width: 1280px; margin: 0 auto; padding: 8px var(--gutter); min-height: 76px; }
+.voci { display: none; }
+.testata__azioni { margin-left: auto; display: flex; align-items: center; gap: 6px; flex: none; }
+.lingue { display: flex; }
+.lingue button { min-width: 34px; min-height: 38px; padding: 2px 5px 0; border: 1px solid rgba(228, 203, 142, .6); background: transparent; color: var(--su-verde); font: 700 .86rem var(--f-testo); cursor: pointer; }
+.lingue button + button { border-left: 0; }
+.lingue button.is-on { background: var(--oro-chiaro); color: var(--velluto); }
+.chiama { display: none; align-items: center; min-height: 40px; padding: 1px 18px 0; border-radius: 20px; background: var(--oro-chiaro); color: var(--velluto); font: 700 .96rem var(--f-testo); text-decoration: none; }
+.chiama:hover { background: #FFFFFF; }
+.burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; border: 1px solid rgba(228, 203, 142, .6); background: transparent; cursor: pointer; }
+.burger span { display: block; height: 2px; background: var(--oro-chiaro); transition: transform .2s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-mobile { position: fixed; top: var(--testata-h); left: 0; right: 0; z-index: 49; max-height: calc(100vh - var(--testata-h)); overflow-y: auto; padding: 10px var(--gutter) 22px; background: var(--velluto); box-shadow: 0 12px 24px rgba(5, 20, 12, .45); }
+.menu-mobile a { display: block; padding: 12px 2px 10px; border-bottom: 1px solid var(--velluto-3); color: var(--su-verde); font: 400 1.45rem/1.3 var(--f-titoli); text-decoration: none; }
+.menu-mobile__tel { display: flex !important; justify-content: center; gap: 8px; margin-top: 14px; border: 0 !important; border-radius: 26px; background: var(--oro-chiaro); color: var(--velluto) !important; font: 700 1.06rem/1.3 var(--f-testo) !important; padding: 14px 8px 11px !important; }
+
+/* ── l'apertura: sul velluto verde; la firma nella cassa ── */
+.apertura { display: grid; gap: 34px; padding: 46px max(var(--gutter), calc((100% - 1240px) / 2)) 62px; background-color: var(--velluto); background-image: radial-gradient(ellipse 60% 70% at 75% 45%, rgba(33, 97, 74, .75), transparent 70%), radial-gradient(ellipse 50% 50% at 10% 90%, rgba(10, 42, 27, .8), transparent 70%); color: var(--su-verde); }
+.apertura__sopra { margin: 0 0 14px; font: 700 .96rem/1.45 var(--f-testo); letter-spacing: .03em; color: var(--oro-chiaro); }
+.titolo { margin: 0 0 18px; font: 400 clamp(2.5rem, 1.4rem + 3.8vw, 4.4rem)/1.22 var(--f-titoli); color: #FFFFFF; text-wrap: balance; }
+.apertura__seconda { max-width: 30em; margin: 0 0 14px; font: 400 clamp(1.2rem, 1.08rem + .45vw, 1.42rem)/1.42 var(--f-titoli); color: var(--oro-chiaro); }
+.apertura__frase { max-width: 32em; margin: 0 0 22px; color: var(--su-verde-2); }
+.voto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0; }
+.voto__n { font: 400 2.5rem/1.15 var(--f-titoli); color: var(--oro-chiaro); }
+.voto__su { font-size: 1.02rem; }
+.citazione { max-width: 28em; margin: 16px 0 0; padding: 2px 0 0 16px; border-left: 2px solid var(--oro); }
+.citazione p { margin: 0; font: 400 1.36rem/1.4 var(--f-titoli); color: #FFFFFF; }
+.citazione footer { margin-top: 4px; font-size: .96rem; color: var(--su-verde-2); }
+.stato { display: inline-flex; align-items: center; gap: 8px; margin: 18px 0 0; font: 700 1.02rem/1.4 var(--f-testo); }
+.stato::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: currentColor; opacity: .45; flex: none; }
+.stato.is-aperto::before { opacity: 1; background: var(--aperto); box-shadow: 0 0 0 3px rgba(127, 211, 160, .3); }
+.apertura__azioni { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.bottone { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 2px 24px 0; border: 1.5px solid var(--oro); border-radius: 26px; background: transparent; color: var(--su-verde); font: 700 1rem/1.1 var(--f-testo); text-align: center; text-decoration: none; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.bottone--pieno { border-color: var(--oro-chiaro); background: var(--oro-chiaro); color: var(--velluto); }
+.bottone--pieno:hover { background: #FFFFFF; border-color: #FFFFFF; }
+.bottone--vuoto { background: var(--velluto); }
+.bottone--vuoto:hover { background: var(--oro-chiaro); color: var(--velluto); }
+.bottone--chiaro { border-color: var(--velluto); background: var(--carta-2); color: var(--velluto); }
+.bottone--chiaro:hover { background: var(--velluto); color: #FFFFFF; }
+.capitolo--carta .bottone--pieno { border-color: var(--velluto); background: var(--velluto); color: #FFFFFF; }
+.capitolo--carta .bottone--pieno:hover { background: var(--velluto-2); border-color: var(--velluto-2); }
+.apertura__firma { width: 100%; max-width: 540px; justify-self: center; }
+.revisione-fig { margin: 0; -webkit-user-select: none; user-select: none; }
+.revisione-fig > svg { border-radius: 6px; box-shadow: 0 26px 40px -28px rgba(0, 0, 0, .7); }
+.revisione__didascalia { min-height: 3em; margin: 14px 4px 0; font-size: 1.02rem; line-height: 1.45; text-align: center; color: var(--su-verde); }
+.revisione__d { display: none; }
+.revisione-fig[data-modo="0"] .revisione__d[data-m="0"], .revisione-fig[data-modo="1"] .revisione__d[data-m="1"], .revisione-fig[data-modo="2"] .revisione__d[data-m="2"] { display: inline; }
+.revisione__modi { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+.revisione__modi button { min-height: 44px; padding: 2px 18px 0; border: 1.5px solid rgba(228, 203, 142, .7); border-radius: 22px; background: var(--velluto); color: var(--su-verde); font: 700 .98rem/1.1 var(--f-testo); cursor: pointer; }
+.revisione__modi button:hover { border-color: #FFFFFF; }
+.revisione__modi button[aria-pressed="true"] { background: var(--oro-chiaro); border-color: var(--oro-chiaro); color: var(--velluto); }
+/* senza JS il lavoro non cambia: i bottoni restano nascosti col loro posto (#240) */
+.no-js .revisione__modi { visibility: hidden; }
+.apertura__nota { max-width: 34em; margin: 14px auto 0; font-size: .96rem; text-align: center; color: var(--su-verde-2); }
+
+/* ── i capitoli ── */
+.capitolo { padding: 70px max(var(--gutter), calc((100% - 1180px) / 2)) 66px; }
+.capitolo--carta { background: var(--carta); }
+.capitolo--verde { background: var(--velluto); color: var(--su-verde); }
+.etichetta { display: flex; align-items: center; gap: 12px; margin: 0 0 4px; font: 700 .84rem/1.3 var(--f-testo); letter-spacing: .24em; text-transform: uppercase; color: var(--oro-scuro); }
+/* la lente: un cerchio col filo, davanti all'etichetta */
+.etichetta::before { content: ''; flex: none; width: 15px; height: 15px; border: 2px solid currentColor; border-radius: 50%; box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 3px currentColor; }
+.capitolo--verde .etichetta, .consiglio .etichetta { color: var(--oro-chiaro); }
+.capitolo__titolo { max-width: 22em; margin: 6px 0 20px; font: 400 clamp(2rem, 1.3rem + 2.3vw, 3rem)/1.16 var(--f-titoli); color: var(--inchiostro); text-wrap: balance; }
+.capitolo--verde .capitolo__titolo { color: #FFFFFF; }
+.capitolo__sotto { max-width: 46em; margin: 0 0 34px; }
+.capitolo--verde .capitolo__sotto { color: var(--su-verde-2); }
+figure { margin: 0; }
+figcaption { margin-top: 8px; font-size: .96rem; line-height: 1.45; color: var(--grigio); }
+.foto { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.foto img { display: block; width: 100%; height: auto; }
+
+/* sul banco: i cartellini delle buste di riparazione, col buco del filo */
+.cartellini { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+.cartellino { position: relative; padding: 20px 22px 18px 44px; background: var(--carta-2); border: 1px solid var(--bordo-carta); clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 calc(100% - 18px), 0 18px); box-shadow: inset 4px 0 0 rgba(122, 92, 36, .08); }
+.cartellino::before { content: ''; position: absolute; left: 13px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: var(--carta); box-shadow: inset 0 0 0 1.5px var(--bordo-carta), 0 0 0 3px rgba(201, 165, 92, .35); }
+.cartellino__n { margin: 0 0 2px; font: 700 .82rem/1.3 var(--f-testo); letter-spacing: .16em; color: var(--rubino); }
+.cartellino__nome { margin: 0 0 6px; font: 400 1.42rem/1.2 var(--f-titoli); color: var(--velluto); }
+.cartellino p { margin: 0; }
+.cartellino__loro { margin-top: 10px !important; padding-top: 9px; border-top: 1px dashed var(--bordo-carta); color: var(--oro-scuro); }
+.banco__vendita { max-width: 46em; margin: 28px 0 0; font: 400 1.3rem/1.4 var(--f-titoli); color: var(--velluto); }
+
+/* il consiglio */
+.consiglio { padding: 66px max(var(--gutter), calc((100% - 900px) / 2)) 62px; background: var(--scuro); color: var(--su-verde); text-align: center; }
+.consiglio .etichetta { justify-content: center; }
+.consiglio__titolo { margin: 8px 0 16px; font: 400 clamp(2.1rem, 1.3rem + 3vw, 3.6rem)/1.16 var(--f-titoli); color: var(--oro-chiaro); text-wrap: balance; }
+.consiglio__testo { max-width: 36em; margin: 0 auto; font-size: 1.08rem; color: var(--su-verde-2); }
+
+/* dal banco: le loro foto */
+.orologi { display: grid; gap: 22px; }
+.orologi img { aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px rgba(228, 203, 142, .45); }
+.capitolo--verde figcaption { color: var(--su-verde-2); }
+
+/* la bottega */
+.bottega { display: grid; gap: 22px; }
+.bottega__testo p { margin: 0 0 14px; max-width: 34em; }
+.bottega__testo p:last-child { margin-bottom: 0; }
+.bottega__saracinesca img { aspect-ratio: 3 / 5; object-fit: cover; object-position: 50% 30%; border-radius: 3px; }
+.bottega__vetrina img { aspect-ratio: 16 / 10; object-fit: cover; border-radius: 3px; }
+.bottega__pendola img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 40%; border-radius: 3px; }
+
+/* dicono: le recensioni sul velluto, con la cucitura */
+.voto--sezione { margin: -4px 0 32px; }
+.capitolo--verde .voto__su { color: var(--su-verde); }
+.recensioni { columns: 1; column-gap: 24px; margin: 0; padding: 0; list-style: none; }
+.recensione { break-inside: avoid; margin: 0 0 24px; padding: 28px 28px 24px; border-radius: 10px; background: var(--velluto-2); outline: 1px dashed rgba(228, 203, 142, .5); outline-offset: -9px; }
+.recensione__testo { margin: 0; font-size: 1.01rem; line-height: 1.62; color: var(--su-verde); overflow-wrap: anywhere; }
+.recensione__chi { margin: 14px 0 0; font-size: .94rem; line-height: 1.4; color: var(--su-verde-2); }
+.recensione__chi b { display: block; color: var(--oro-chiaro); }
+.dicono__nota { max-width: 48em; margin: 6px 0 0; font-size: .98rem; color: var(--su-verde-2); }
+.dicono__nota a { color: var(--oro-chiaro); font-weight: 700; }
+
+/* orari: il cartello appeso alla porta */
+.orari-riga { display: grid; gap: 30px; align-items: start; }
+.cartello { position: relative; max-width: 440px; margin-top: 50px; padding: 22px 26px 20px; border-radius: 14px; background: var(--velluto); color: var(--su-verde); box-shadow: inset 0 0 0 5px var(--velluto), inset 0 0 0 6.5px var(--oro), 0 20px 26px -18px rgba(10, 42, 27, .6); }
+.cartello__catena { position: absolute; left: 50%; top: -50px; width: 240px; height: 56px; margin-left: -120px; overflow: visible; }
+.cartello__catena path { fill: none; stroke: var(--oro-scuro); stroke-width: 2.5; stroke-dasharray: 7 3; stroke-linecap: round; }
+.cartello__catena circle { fill: var(--oro-scuro); }
+.cartello__testa { margin: 0 0 6px; font: 400 2.6rem/1.2 var(--f-nome); text-align: center; color: var(--oro-chiaro); }
+.cartello__giorni { padding: 2px 0; }
+.giorno { display: flex; align-items: baseline; gap: 10px; padding: 8px 6px 6px; border-bottom: 1px solid var(--velluto-3); }
+.giorno:last-child { border-bottom: 0; }
+.giorno__nome { font: 400 1.12rem/1.3 var(--f-titoli); }
+.giorno__ore { margin-left: auto; font-weight: 700; white-space: nowrap; }
+.giorno--chiuso .giorno__ore { color: var(--su-verde-2); font-weight: 400; }
+.giorno.is-today { background: var(--velluto-2); }
+.giorno.is-today .giorno__nome, .giorno.is-today .giorno__ore { color: var(--oro-chiaro); font-weight: 700; }
+.indirizzo { margin: 0 0 18px; }
+.indirizzo div { display: grid; grid-template-columns: 7.4em minmax(0, 1fr); gap: 10px; padding: 9px 0 7px; border-bottom: 1px solid var(--bordo-carta); }
+.indirizzo dt { font: 700 .8rem/2 var(--f-testo); letter-spacing: .14em; text-transform: uppercase; color: var(--oro-scuro); }
+.indirizzo dd { margin: 0; overflow-wrap: anywhere; }
+.dove__azioni { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.orari__nota { margin: 16px 0 0; color: var(--grigio); }
+.cartina { margin-top: 34px; overflow: hidden; border-radius: 6px; box-shadow: 0 0 0 1.5px var(--oro), 0 0 0 7px var(--carta), 0 0 0 8px rgba(122, 92, 36, .5); }
+.cartina iframe { display: block; width: 100%; height: 360px; border: 0; }
+
+/* ── la chiusura: di nuovo il nome d'oro sul velluto ── */
+.piede { background: var(--velluto); color: var(--su-verde); box-shadow: inset 0 1px 0 var(--oro), inset 0 4px 0 var(--velluto), inset 0 5px 0 rgba(201, 165, 92, .45); }
+.piede__dentro { max-width: 900px; margin: 0 auto; padding: 50px var(--gutter) 100px; text-align: center; }
+.piede__marchio { display: grid; justify-items: center; margin: 0 0 10px; }
+.piede .marchio__nome { font-size: clamp(2rem, 1.3rem + 3.2vw, 2.8rem); white-space: normal; }
+.piede .marchio__sotto { margin: 2px 0 0; font-size: .82rem; }
+.piede__riga { margin: 0 0 18px; font-size: .98rem; color: var(--su-verde-2); }
+.piede__dove, .piede__orario, .piede__social { margin: 0 0 8px; }
+.piede a { color: var(--oro-chiaro); }
+.piede__cred { max-width: 54em; margin: 18px auto 10px; font-size: .94rem; color: var(--su-verde-2); }
+.piede__su { font-weight: 700; }
+
+/* ── reveal (plumbing) ── */
+.js .reveal { opacity: 0; }
+.js .reveal.in-view { opacity: 1; }
+html:not(.js) .reveal { opacity: 1; }
+.reduced-motion .reveal { opacity: 1 !important; }
+
+/* ── la barra e la lightbox ── */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: 1fr 1fr; background: var(--velluto); box-shadow: 0 -1px 0 var(--oro); transform: translateY(110%); transition: transform .25s; }
+.action-bar.is-visible { transform: translateY(0); }
+.action-bar a { display: flex; align-items: center; justify-content: center; min-height: 54px; padding-top: 2px; color: #FFFFFF; font: 700 1.02rem var(--f-testo); text-decoration: none; }
+.action-bar a:first-child { background: var(--oro-chiaro); color: var(--velluto); }
+#lightbox { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(6, 22, 14, .95); }
+#lightbox[hidden] { display: none !important; }
+#lightbox img { width: auto; max-width: min(1400px, 100%); max-height: 88vh; }
+#lightboxClose { position: absolute; top: 14px; right: 16px; width: 48px; height: 48px; border: 1px solid rgba(255, 255, 255, .6); border-radius: 50%; background: transparent; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+
+/* ── le larghezze ── */
+@media (max-width: 379px) {
+  .testata__dentro { gap: 6px; }
+  .lingue button { min-width: 31px; }
+  .marchio__nome { font-size: 1.42rem; }
+  .marchio__sotto { font-size: .58rem; letter-spacing: .18em; }
+  .stato { font-size: .96rem; }
+  .revisione__modi button { padding: 2px 13px 0; }
+  .bottone { padding: 2px 16px 0; }
+  .cartello { padding: 20px 16px 18px; }
+  .recensione { padding: 26px 22px 22px; }
+  .cartellino { padding: 18px 16px 16px 40px; }
+}
+@media (min-width: 560px) {
+  .chiama { display: inline-flex; }
+  .cartellini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .orologi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bottega { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bottega__testo, .bottega__vetrina { grid-column: 1 / -1; }
+  .bottega__saracinesca img, .bottega__pendola img { aspect-ratio: 3 / 5; }
+}
+@media (min-width: 760px) {
+  .action-bar { display: none; }
+  .piede__dentro { padding-bottom: 54px; }
+  .recensioni { columns: 2; }
+}
+@media (min-width: 960px) {
+  .apertura { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 56px; }
+  .cartellini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .orologi { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* la saracinesca alta a sinistra; a destra la vetrina, sotto il testo e la pendola */
+  .bottega { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "s v v" "s t p"; align-items: start; }
+  .bottega__saracinesca { grid-area: s; } .bottega__vetrina { grid-area: v; } .bottega__testo { grid-area: t; align-self: center; } .bottega__pendola { grid-area: p; }
+  .bottega__saracinesca img { aspect-ratio: 7 / 15; }
+  .bottega__pendola img { aspect-ratio: 4 / 5; }
+  .orari-riga { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 48px; align-items: center; }
+}
+@media (min-width: 1100px) {
+  .testata__dentro { gap: 16px; }
+  .voci { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-left: 24px; }
+  .voci a { padding: 4px 1px 2px; color: var(--su-verde); font: 400 1.1rem var(--f-titoli); text-decoration: none; }
+  .voci a:hover, .voci a[aria-current="true"] { color: var(--oro-chiaro); text-decoration: underline; text-decoration-color: var(--oro); text-decoration-thickness: 1.5px; text-underline-offset: 7px; }
+  .burger { display: none; }
+  .recensioni { columns: 3; }
+}
+
+/*REVISIONE*/
+/* la revisione — generato da _ozb_firma.mjs: non modificare a mano */
+.revisione__svg { display: block; width: 100%; height: auto; overflow: hidden; background: #0E3423; }
+.rv-cassa { fill: none; stroke-width: 16; } .rv-cassa-filo { fill: none; stroke: #D9B66A; stroke-width: 1.5; }
+.rv-tige { fill: #8E6E30; } .rv-corona { fill: #C9A55C; stroke: #7A5C24; stroke-width: 1.5; } .rv-zigrino { stroke: #7A5C24; stroke-width: 1.4; }
+.rv-platina { fill: #0D3020; }
+.rv-dente, .rv-raggio, .rv-mozzo, .rv-coperchio { fill: #174B34; stroke: #D9B66A; stroke-width: 1.4; stroke-linejoin: round; }
+.rv-vuoto, .rv-albero { fill: #0D3020; stroke: #D9B66A; stroke-width: 1.2; }
+.rv-filo { fill: none; stroke: #D9B66A; stroke-opacity: .45; stroke-width: 1; }
+.rv-rubino { fill: #A8263A; stroke: #E8A9B0; stroke-width: .8; }
+.rv-bil { fill: none; stroke: #D9B66A; stroke-width: 5; } .rv-braccio { fill: #D9B66A; } .rv-vite { fill: #F0DCA6; }
+.rv-spirale { fill: none; stroke: #F0DCA6; stroke-width: 1.1; stroke-linejoin: round; }
+.rv-ponte { fill: #1C5A3F; stroke: #D9B66A; stroke-width: 1.6; stroke-linejoin: round; } .rv-vite-g { fill: #C9A55C; stroke: #7A5C24; stroke-width: 1; }
+.rv-massa { fill: #D9B66A; fill-opacity: .16; stroke: #D9B66A; stroke-width: 1.8; stroke-linejoin: round; }
+.rv-circuito { fill: #14452F; stroke: #D9B66A; stroke-width: 1.6; stroke-linejoin: round; }
+.rv-pista { fill: none; stroke: #D9B66A; stroke-opacity: .55; stroke-width: 1.4; stroke-linejoin: round; }
+.rv-componente { fill: #2A2A28; stroke: #D9B66A; stroke-width: 1; } .rv-sede { fill: none; stroke: #D9B66A; stroke-width: 1.4; stroke-dasharray: 5 5; }
+.rv-bobina { fill: #9A5530; stroke: #D9B66A; stroke-width: 1.4; } .rv-spire { stroke: #5E2E16; stroke-width: 1.2; }
+.rv-quarzo { fill: #C9C6BC; stroke: #D9B66A; stroke-width: 1.4; }
+.rv-pila { fill: url(#ozb-pila-g); stroke: #D9B66A; stroke-width: 1.6; } .rv-pila-filo { fill: none; stroke: #8F8B80; stroke-width: 1.2; } .rv-segno { fill: none; stroke: #5C5A55; stroke-width: 3.2; stroke-linecap: round; }
+.rv-fondello { fill: url(#ozb-fondello-g); } .rv-incisione { fill: none; stroke: #8A6A2E; stroke-opacity: .55; stroke-width: 1.2; }
+.luce { fill: none; stroke: #FFF3D0; stroke-opacity: .85; stroke-width: 7; stroke-linecap: butt; }
+.revisione-fig[data-modo="0"] .modo:not([data-m="0"]) { display: none; }
+.revisione-fig[data-modo="1"] .modo:not([data-m="1"]) { display: none; }
+.revisione-fig[data-modo="2"] .modo:not([data-m="2"]) { display: none; }
+.firma-attesa .fondello { opacity: 1; }
+.firma-attesa .pezzo { opacity: 0; }
+.firma-attesa .luce { stroke-dasharray: 0 2; stroke-dashoffset: 0; }
+/*/REVISIONE*/
